@@ -1,11 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Controller, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import "swiper/css";
 import { useNavigate } from "react-router-dom";
-const Slider = ({ isMobileDevice, recipe, callback }) => {
+import { SizeContext } from "../context/SizeContext";
+const Slider = ({ recipe, callback }) => {
+  const isMobileDevice = useContext(SizeContext);
   const sliderRef = useRef(null);
   const navigate = useNavigate();
   const nextSlide = () => {
@@ -31,7 +33,7 @@ const Slider = ({ isMobileDevice, recipe, callback }) => {
           navigation
           ref={sliderRef}
           autoplay={{ delay: 3000 }}
-          slidesPerView={isMobileDevice ? 1 : 3}
+          slidesPerView={isMobileDevice.isMobileDevice ? 1 : 3}
         >
           {recipe?.map((list, i) => {
             return (

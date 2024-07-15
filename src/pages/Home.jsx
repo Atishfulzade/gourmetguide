@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Testinomy from "../Component/Testinomy";
 import FestiveSlider from "../Component/FestiveSlider";
 import Slider from "../Component/Slider";
@@ -6,6 +12,10 @@ import Footer from "../Component/Footer";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import { SizeContext } from "../context/SizeContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const [highLights, setHighLights] = useState([]);
@@ -15,6 +25,17 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const isMobileDevice = useContext(SizeContext);
   const navigate = useNavigate();
+  const goodRef = useRef(null);
+
+  useEffect(() => {
+    gsap.from(goodRef.current, {
+      opacity: 0,
+      x: 100,
+      duration: 3,
+      ease: "bounce",
+    });
+  }, []);
+
   useEffect(() => {
     const fetchAllData = async () => {
       setLoading(true); // Set loading to true at the start of the fetch
@@ -48,13 +69,14 @@ const Home = () => {
       }
     };
     fetchAllData();
-  }, [setLoading]);
+  }, [isMobileDevice]);
 
   const callback = useCallback(() => {}, []);
 
   if (loading) {
     return <Loading />;
   }
+
   return (
     <main className="h-fit w-full bg-white overflow-x-hidden">
       <header className="md:h-[calc(100vh-80px)] w-full h-[calc(100vh-40px)] bg-slate-300 relative">
@@ -64,9 +86,12 @@ const Home = () => {
           loading="lazy"
           className="h-full w-full object-cover md:object-center object-[20%]"
         />
-        <h2 className="absolute md:top-96 md:text-10xl md:left-10 lg:top-72 lg:left-80  top-60 mr-2 text-7xl text-right ">
+        <h2
+          id="heading"
+          className="absolute md:top-96 md:text-10xl md:left-10 lg:top-72 lg:left-80 top-60 mr-2 text-6xl text-right"
+        >
           Your favourite food <br />
-          Make it good
+          Make it <span ref={goodRef}>good</span>
         </h2>
       </header>
 
@@ -82,7 +107,7 @@ const Home = () => {
                 src={item.strCategoryThumb}
                 alt={item.strCategory}
                 loading="lazy"
-                className="h-40 w-40 object-contain "
+                className="h-40 w-40 object-contain"
               />
               <h4 className="text-center text-[18px] font-poppin font-medium text-slate-800">
                 {item.strCategory}
@@ -100,7 +125,10 @@ const Home = () => {
             loading="lazy"
             className="md:h-[80vh] md:w-[60vw] h-[400px] object-cover rounded-3xl"
           />
-          <div className="md:h-[450px] md:w-[450px] right-0 flex flex-col gap-3 justify-center items-center p-10 bg-red-200 absolute mr-0 rounded-3xl md:top-14 top-32">
+          <div
+            id="card"
+            className="md:h-[450px] md:w-[450px] right-0 flex flex-col gap-3 justify-center items-center p-10 bg-red-200 absolute mr-0 rounded-3xl md:top-14 top-32"
+          >
             <h4 className="font-poppin font-semibold text-2xl mb-5">
               {singlePost.strMeal}
             </h4>
@@ -119,11 +147,7 @@ const Home = () => {
         </div>
       </section>
 
-      <Slider
-        isMobileDevice={isMobileDevice}
-        recipe={recipe}
-        callback={callback}
-      />
+      <Slider recipe={recipe} callback={callback} />
       <Testinomy />
       <FestiveSlider recipe={recipe} />
 

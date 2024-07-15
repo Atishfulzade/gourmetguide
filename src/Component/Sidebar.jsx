@@ -22,7 +22,6 @@ const Sidebar = ({ myData }) => {
     };
     fetchMyData();
   }, []);
-  console.log(area);
   return (
     <div className="w-[30%] h-screen sticky top-0 border-l-2  border-red-300 mt-5  p-5 pt-0">
       <div className="flex flex-col h-fit w-full mb-3 text-xl font-medium text-slate-800">

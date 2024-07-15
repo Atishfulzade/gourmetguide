@@ -2,12 +2,19 @@ import React, { useCallback, useEffect, useState } from "react";
 import SearchInput from "./SearchInput";
 import { socialIcon } from "../constant";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 const Navbar = () => {
   const [input, setInput] = useState("");
   const [results, setResults] = useState([]);
   const [filter, setFilter] = useState({ category: "", area: "" });
   const navigate = useNavigate();
+  useGSAP(() => {
+    gsap.from("#nav", {
+      y: -70,
+    });
+  }, []);
+
   const fetchData = useCallback(async () => {
     if (!input) return;
     try {
@@ -24,6 +31,12 @@ const Navbar = () => {
   useEffect(() => {
     fetchData();
   }, [input, fetchData]);
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    fetchData();
+  };
+
   const filterData = results.filter((meal) => {
     return (
       (filter.category ? meal.strCategory === filter.category : true) &&
@@ -33,12 +46,22 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full md:h-20 h-16 flex justify-between px-6 items-center relative">
-        <h1 className="logo text-red-600 cursive md:text-3xl text-[18px] select-none">
+      <div
+        className="w-full md:h-20 h-16 flex justify-between px-6 items-center relative"
+        id="nav"
+      >
+        <h1
+          className="logo text-red-600 cursive md:text-3xl text-[18px] select-none"
+          id="logo"
+        >
           Gourmet<span className="text-black cursive">Guide</span>
         </h1>
-        <SearchInput input={input} setInput={setInput} />
-        <div className="hidden md:flex md:gap-3">
+        <SearchInput
+          input={input}
+          setInput={setInput}
+          onSearch={handleSearch}
+        />
+        <div className="hidden md:flex md:gap-3" id="social-List">
           <Link to="/" className="mr-10 text-red-500">
             Home
           </Link>
@@ -48,6 +71,7 @@ const Navbar = () => {
               key={val.title}
               to={val.link}
               className="text-gray-900 md:text-xl hover:text-red-600 transition-all"
+              id="social"
             >
               {val.icon}
             </Link>
@@ -86,7 +110,7 @@ const Navbar = () => {
             </select>
             <select
               name="filter"
-              id="categoryFilter"
+              id="areaFilter"
               className="p-2 border m-2"
               value={filter.area}
               onChange={(e) => {
@@ -120,29 +144,34 @@ const Navbar = () => {
               <option value="Thai">Thai</option>
               <option value="Tunisian">Tunisian</option>
               <option value="Turkish">Turkish</option>
-              <option value="Mexican">Ukrainian</option>
+              <option value="Ukrainian">Ukrainian</option>
               <option value="Unknown">Unknown</option>
               <option value="Vietnamese">Vietnamese</option>
             </select>
           </div>
           <div className="flex flex-col">
-            {filterData.map((meal, index) => (
-              <div
-                key={index}
-                onClick={() => {
-                  navigate(`/post/${meal.strMeal}`);
-                  setInput("");
-                }}
-                className="flex justify-start gap-3 h-14 hover:bg-red-200 font-poppin cursor-pointer border-gray-800 hover:bg-white/50 items-center px-3"
-              >
-                <img
-                  src={meal.strMealThumb}
-                  alt={meal.strMeal}
-                  className="h-10 w-10 rounded-full object-cover"
-                />
-                <h4 className="mb-0 pb-0 w-40">{meal.strMeal}</h4>
-              </div>
-            ))}
+            {filterData.length > 0 ? (
+              filterData.map((meal, index) => (
+                <div
+                  key={index}
+                  onClick={() => {
+                    navigate(`/post/${meal.strMeal}`);
+                    setInput("");
+                  }}
+                  className="flex justify-start gap-3 h-14 hover:bg-red-200 font-poppin cursor-pointer border-gray-800 hover:bg-white/50 items-center px-3"
+                >
+                  <img
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                    loading="lazy"
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                  <h4 className="mb-0 pb-0 w-40">{meal.strMeal}</h4>
+                </div>
+              ))
+            ) : (
+              <p className="mt-48 mx-auto text-2xl">No recipe found !</p>
+            )}
           </div>
         </div>
       )}
