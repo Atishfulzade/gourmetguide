@@ -170,7 +170,9 @@ const Navbar = () => {
                 </div>
               ))
             ) : (
-              <p className="mt-48 mx-auto text-2xl">No recipe found !</p>
+              <p className="md:mt-48 mt-20 mx-auto text-2xl">
+                No recipe found !
+              </p>
             )}
           </div>
         </div>
