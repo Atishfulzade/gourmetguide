@@ -64,7 +64,7 @@ const Home = () => {
           alt="Header image"
           className="h-full w-full object-cover md:object-center object-[20%]"
         />
-        <h2 className="absolute md:top-[50%] top-60 md:self-center md:mx-auto right-8 w-full md:w-[50%] md:ml-96 text-right text-slate-900 md:text-7xl font-medium text-6xl font-poppin">
+        <h2 className="absolute md:top-96 md:text-10xl md:left-10 lg:top-72 lg:left-80  top-60 mr-2 text-7xl text-right ">
           Your favourite food <br />
           Make it good
         </h2>
