@@ -36,7 +36,6 @@ const Post = () => {
   if (!myData) {
     return <Loading />;
   }
-  console.log(isMobileDevice);
   return (
     <div className="flex justify-between w-full  h-fit bg-red-200">
       <div className="flex  flex-col w-full md:w-[80%] relative overflow-hidden lg:px-20 px-3">
@@ -47,11 +46,13 @@ const Post = () => {
               <img
                 src={myData.strMealThumb}
                 alt={myData.strMeal}
+                loading="lazy"
                 className="h-full w-full object-cover rounded-3xl "
               />
               <img
                 src={myData.strMealThumb}
                 alt={myData.strMeal}
+                loading="lazy"
                 className="rounded-full absolute hidden md:block top-48  border-white border-4 right-[-100px] shadow-md h-[300px] w-[300px] object-cover"
               />
               <h3 className="px-3 py-1 md:mt-32 lg:mt-10 font-medium  shadow-md bg-white text-slate-800 w-fit rounded-full text-sm mt-7">

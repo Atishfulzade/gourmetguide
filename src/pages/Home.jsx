@@ -47,7 +47,6 @@ const Home = () => {
         setLoading(false);
       }
     };
-    console.log(recipe);
     fetchAllData();
   }, [setLoading]);
 
@@ -60,8 +59,9 @@ const Home = () => {
     <main className="h-fit w-full bg-white overflow-x-hidden">
       <header className="md:h-[calc(100vh-80px)] w-full h-[calc(100vh-40px)] bg-slate-300 relative">
         <img
-          src="./Food-and-Culture.jpg"
+          src="./Food-and-Culture.webp"
           alt="Header image"
+          loading="lazy"
           className="h-full w-full object-cover md:object-center object-[20%]"
         />
         <h2 className="absolute md:top-96 md:text-10xl md:left-10 lg:top-72 lg:left-80  top-60 mr-2 text-7xl text-right ">
@@ -81,6 +81,7 @@ const Home = () => {
               <img
                 src={item.strCategoryThumb}
                 alt={item.strCategory}
+                loading="lazy"
                 className="h-40 w-40 object-contain "
               />
               <h4 className="text-center text-[18px] font-poppin font-medium text-slate-800">
@@ -96,6 +97,7 @@ const Home = () => {
           <img
             src={singlePost?.strMealThumb}
             alt={singlePost.strMeal}
+            loading="lazy"
             className="md:h-[80vh] md:w-[60vw] h-[400px] object-cover rounded-3xl"
           />
           <div className="md:h-[450px] md:w-[450px] right-0 flex flex-col gap-3 justify-center items-center p-10 bg-red-200 absolute mr-0 rounded-3xl md:top-14 top-32">
@@ -137,6 +139,7 @@ const Home = () => {
               <img
                 src={val.strMealThumb}
                 alt={val.strCategory}
+                loading="lazy"
                 className="md:h-32 md:w-32 h-28 w-28 object-cover rounded-full"
               />
               <div className="flex flex-col">

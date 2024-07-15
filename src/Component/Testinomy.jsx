@@ -31,7 +31,8 @@ const Testinomy = () => {
             <div className="absolute top-5 md:right-48 h-40 w-40 md:h-56 md:w-56  lg:h-96 lg:w-96 right-2">
               <img
                 src={testi.profilePhoto}
-                alt=""
+                alt={testi.name}
+                loading="lazy"
                 className="h-full w-full object-cover rounded-full"
               />
             </div>

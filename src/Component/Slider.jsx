@@ -43,6 +43,7 @@ const Slider = ({ isMobileDevice, recipe, callback }) => {
                 <img
                   src={list?.strMealThumb}
                   alt={list?.strMeal}
+                  loading="lazy"
                   className="h-[65%] w-100% object-cover"
                 />
                 <div className="h-fit text-center w-fit max-w-64  text-wrap font-medium bg-white absolute bottom-[120px] rounded shadow-sm text-red-600  px-5 py-2 self-center">

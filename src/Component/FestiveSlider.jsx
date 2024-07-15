@@ -38,6 +38,7 @@ const FestiveSlider = ({ recipe }) => {
               <img
                 src={val.strMealThumb}
                 alt={val.strMeal}
+                loading="lazy"
                 className="h-full w-[50%] object-cover overflow-hidden"
               />
 
