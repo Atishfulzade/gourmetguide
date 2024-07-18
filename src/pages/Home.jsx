@@ -83,12 +83,11 @@ const Home = () => {
         <img
           src="./Food-and-Culture.webp"
           alt="Header image"
-          loading="lazy"
           className="h-full w-full object-cover md:object-center object-[20%]"
         />
         <h2
           id="heading"
-          className="absolute md:top-96 md:text-10xl md:left-10 lg:top-72 lg:left-80 top-60 mr-2 text-6xl text-right"
+          className="absolute md:top-96 md:text-10xl md:left-10  lg:text-[90px] lg:top-72 lg:left-80 top-60 mr-2 text-6xl text-right"
         >
           Your favourite food <br />
           Make it <span ref={goodRef}>good</span>
